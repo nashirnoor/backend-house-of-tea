@@ -31,6 +31,10 @@ CSRF_TRUSTED_ORIGINS = [
 
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    'https://inventory-management-house-of-tea.vercel.app',  # Your Vercel Frontend
+]
+
 
 # Application definition
 
