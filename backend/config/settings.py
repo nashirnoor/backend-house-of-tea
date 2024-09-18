@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 env = Env()
 env.read_env()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DATABASE_URL = "postgresql://postgres:YMcenntQAZkfNDcLDWqECzXtCJlcaGmu@junction.proxy.rlwy.net:21460/railway"
