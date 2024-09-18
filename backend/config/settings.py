@@ -26,7 +26,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [
-    'https://stock-management-house-of-tea-front-end.vercel.app/']
+    'https://stock-management-house-of-tea-front-end.vercel.app/',
+    'https://backend-house-of-tea-production.up.railway.app',
+    'https://backend-house-of-tea-production.up.railway.app/',
+
+]
 
 
 # Application definition
