@@ -35,7 +35,7 @@ class LoginViewSet(viewsets.ModelViewSet, TokenObtainPairView):
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-
+        print(serializer,"serialllllllllllll")
         try:
             serializer.is_valid(raise_exception=True)
         except TokenError as e:
@@ -94,6 +94,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
+        print(user,"llllllllllllllllll")
         if user.role == 'admin':
             return User.objects.all()
         elif user.role == 'branch_manager':
