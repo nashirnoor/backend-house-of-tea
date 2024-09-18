@@ -11,6 +11,12 @@ class User(AbstractUser):
     role = models.CharField(max_length=20, choices=ROLES)
 
     def save(self, *args, **kwargs):
+        if self.pk is None:  
+            self.set_password(self.password)
+        elif self._password is not None:  
+            self.set_password(self._password)
+        self._password = None
+
         if self.role == 'admin':
             self.is_staff = True
             self.is_superuser = True

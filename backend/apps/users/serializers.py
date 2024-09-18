@@ -5,6 +5,8 @@ from django.contrib.auth.models import update_last_login
 from django.contrib.auth import get_user_model
 from apps.users.models import Notification
 from apps.branches.serializers import BranchSerializer
+from django.contrib.auth.hashers import make_password
+
 
 
 User = get_user_model()
@@ -20,34 +22,31 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
 
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
+        validated_data['password'] = make_password(validated_data.get('password'))
+        return super(UserSerializer, self).create(validated_data)
+
+    def update(self, instance, validated_data):
+        if 'password' in validated_data:
+            validated_data['password'] = make_password(validated_data.get('password'))
+        return super(UserSerializer, self).update(instance, validated_data)
 
 
 class LoginSerializer(TokenObtainPairSerializer):
+
     def validate(self, attrs):
-        print("LoginSerializer validate method called")
-        try:
-            data = super().validate(attrs)
-            print("Super validate successful")
-            refresh = self.get_token(self.user)
-            print("User:", self.user)
-            print("User role:", self.user.role)
+        data = super().validate(attrs)
+        refresh = self.get_token(self.user)
 
-            user_data = UserSerializer(self.user).data
-            print("Serialized user data:", user_data)
+        user_data = UserSerializer(self.user).data
 
-            data['user'] = user_data
-            data['refresh'] = str(refresh)
-            data['access'] = str(refresh.access_token)
+        data['user'] = user_data
+        data['refresh'] = str(refresh)
+        data['access'] = str(refresh.access_token)
 
-            if api_settings.UPDATE_LAST_LOGIN:
-                update_last_login(None, self.user)
+        if api_settings.UPDATE_LAST_LOGIN:
+            update_last_login(None, self.user)
 
-            return data
-        except Exception as e:
-            print("Error in LoginSerializer validate:", str(e))
-            raise
+        return data
 
 
 class NotificationSerializer(serializers.ModelSerializer):

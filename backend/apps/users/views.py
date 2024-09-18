@@ -34,19 +34,11 @@ class LoginViewSet(viewsets.ModelViewSet, TokenObtainPairView):
     http_method_names = ["post"]
 
     def create(self, request, *args, **kwargs):
-        print("Request data:", request.data)
         serializer = self.get_serializer(data=request.data)
-        print("Serializer:", serializer)
         try:
             serializer.is_valid(raise_exception=True)
-            print("Serializer is valid")
-            print("Validated data:", serializer.validated_data)
         except TokenError as e:
-            print("TokenError:", str(e))
             raise InvalidToken(e.args[0])
-        except Exception as e:
-            print("Validation error:", str(e))
-            raise
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
@@ -101,7 +93,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        print(user,"llllllllllllllllll")
         if user.role == 'admin':
             return User.objects.all()
         elif user.role == 'branch_manager':
