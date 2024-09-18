@@ -24,7 +24,9 @@ SECRET_KEY = "5yusnqwbj#a)*^tk63jdqjol-w*d!ew+k(g2=6z9+ie5m9v@gu"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG")
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = [
+    'https://stock-management-house-of-tea-front-end.vercel.app/']
 
 
 # Application definition
