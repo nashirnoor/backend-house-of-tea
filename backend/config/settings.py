@@ -22,7 +22,7 @@ DATABASE_URL = "postgresql://postgres:YMcenntQAZkfNDcLDWqECzXtCJlcaGmu@junction.
 SECRET_KEY = "5yusnqwbj#a)*^tk63jdqjol-w*d!ew+k(g2=6z9+ie5m9v@gu"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [
@@ -182,7 +182,7 @@ MEDIA_URL = "/media/"
 
 
 # STATICFILES_DIRS = ['backend/static']
-STATIC_ROOT = os.path.join(BASE_DIR, 'backend', 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
