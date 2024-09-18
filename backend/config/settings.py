@@ -26,13 +26,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [
-    'https://stock-management-house-of-tea-front-end.vercel.app',
     'https://backend-house-of-tea-production.up.railway.app',
 
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://inventory-management-house-of-tea.vercel.app',  # Your Vercel Frontend
+    'https://inventory-management-house-of-tea.vercel.app',  
 ]
 
 
