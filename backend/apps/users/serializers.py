@@ -25,21 +25,29 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(TokenObtainPairSerializer):
-
     def validate(self, attrs):
-        data = super().validate(attrs)
-        refresh = self.get_token(self.user)
+        print("LoginSerializer validate method called")
+        try:
+            data = super().validate(attrs)
+            print("Super validate successful")
+            refresh = self.get_token(self.user)
+            print("User:", self.user)
+            print("User role:", self.user.role)
 
-        user_data = UserSerializer(self.user).data
+            user_data = UserSerializer(self.user).data
+            print("Serialized user data:", user_data)
 
-        data['user'] = user_data
-        data['refresh'] = str(refresh)
-        data['access'] = str(refresh.access_token)
+            data['user'] = user_data
+            data['refresh'] = str(refresh)
+            data['access'] = str(refresh.access_token)
 
-        if api_settings.UPDATE_LAST_LOGIN:
-            update_last_login(None, self.user)
+            if api_settings.UPDATE_LAST_LOGIN:
+                update_last_login(None, self.user)
 
-        return data
+            return data
+        except Exception as e:
+            print("Error in LoginSerializer validate:", str(e))
+            raise
 
 
 class NotificationSerializer(serializers.ModelSerializer):
