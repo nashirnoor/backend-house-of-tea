@@ -13,12 +13,13 @@ env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DATABASE_URL = "postgresql://postgres:YMcenntQAZkfNDcLDWqECzXtCJlcaGmu@junction.proxy.rlwy.net:21460/railway"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str("SECRET_KEY")
+SECRET_KEY = "5yusnqwbj#a)*^tk63jdqjol-w*d!ew+k(g2=6z9+ie5m9v@gu"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG")
@@ -115,18 +116,29 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env.str("DB_NAME"),
-        "USER": env.str("DB_USER"),
-        "PASSWORD": env.str("DB_PASSWORD"),
-        "HOST": env.str("DB_HOST"),
-        "PORT": env.int("DB_PORT"),
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": env.str("DB_NAME"),
+#         "USER": env.str("DB_USER"),
+#         "PASSWORD": env.str("DB_PASSWORD"),
+#         "HOST": env.str("DB_HOST"),
+#         "PORT": env.int("DB_PORT"),
+#     }
+# }
 
-# DATABASES["default"] = dj_database_url.parse(env.str("DATABASE_URL"))
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
+DATABASES = {
+    "default" : dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+}
 
 
 # Password validation
@@ -228,11 +240,9 @@ UNFOLD = {
     ],
     "SHOW_HISTORY": False,
     "SHOW_VIEW_ON_SITE": True,
-    "LOGIN": {
+     "LOGIN": {
         "image": lambda request: static("images/nasscript_logo.png"),
-        "redirect_after": lambda request: reverse_lazy(
-            "admin:restaurant_app_user_changelist"
-        ),
+        "redirect_after": lambda request: reverse_lazy("admin:index"),
     },
     "COLORS": {
         "primary": {
