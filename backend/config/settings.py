@@ -31,6 +31,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    'https://stock-house-of-tea-front-end.vercel.app',
     'https://house-of-tea-inventory.vercel.app/',
     'https://house-of-tea-inventory.vercel.app'
     'https://inventory-management-house-of-tea.vercel.app',  
